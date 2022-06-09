@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
+import polygonLogo from "./assets/polygonlogo.png";
+import ethLogo from "./assets/ethlogo.png";
+import { networks } from "./utils/networks";
 import "./styles/App.css";
 import twitterLogo from "./assets/twitter-logo.svg";
 import contractAbi from "./utils/contractABI.json";
@@ -14,6 +17,7 @@ const App = () => {
 	const [currentAccount, setCurrentAccount] = useState("");
 	const [domain, setDomain] = useState("");
 	const [record, setRecord] = useState("");
+	const [network, setNetwork] = useState("");
 
 	const connectWallet = async () => {
 		try {
@@ -53,6 +57,15 @@ const App = () => {
 			setCurrentAccount(account);
 		} else {
 			console.log("No authorized account found");
+		}
+
+		const chainId = await ethereum.request({ method: "eth_chainId" });
+		setNetwork(networks[chainId]);
+
+		ethereum.on("chainChanged", handleChainChanged);
+
+		function handleChainChanged(_chainId) {
+			window.location.reload();
 		}
 	};
 
@@ -164,6 +177,22 @@ const App = () => {
 						<div className="left">
 							<p className="title">🌈🚀 GMI Name Service</p>
 							<p className="subtitle">Your wholesome API on the blockchain!</p>
+						</div>
+						<div className="right">
+							<img
+								alt="Network logo"
+								className="logo"
+								src={network.includes("Polygon") ? polygonLogo : ethLogo}
+							/>
+							{currentAccount ? (
+								<p>
+									{" "}
+									Wallet: {currentAccount.slice(0, 6)}...
+									{currentAccount.slice(-4)}{" "}
+								</p>
+							) : (
+								<p> Not connected </p>
+							)}
 						</div>
 					</header>
 				</div>
