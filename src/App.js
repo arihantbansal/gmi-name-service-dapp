@@ -69,6 +69,45 @@ const App = () => {
 		}
 	};
 
+	const switchNetwork = async () => {
+		if (window.ethereum) {
+			try {
+				await window.ethereum.request({
+					method: "wallet_switchEthereumChain",
+					params: [{ chainId: "0x13881" }],
+				});
+			} catch (error) {
+				if (error.code === 4902) {
+					try {
+						await window.ethereum.request({
+							method: "wallet_addEthereumChain",
+							params: [
+								{
+									chainId: "0x13881",
+									chainName: "Polygon Mumbai Testnet",
+									rpcUrls: ["https://rpc-mumbai.maticvigil.com/"],
+									nativeCurrency: {
+										name: "Mumbai Matic",
+										symbol: "MATIC",
+										decimals: 18,
+									},
+									blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
+								},
+							],
+						});
+					} catch (error) {
+						console.log(error);
+					}
+				}
+				console.log(error);
+			}
+		} else {
+			alert(
+				"MetaMask is not installed. Please install it to use this app: https://metamask.io/download.html"
+			);
+		}
+	};
+
 	const renderNotConnectedContainer = () => (
 		<div className="connect-wallet-container">
 			<img
@@ -137,6 +176,17 @@ const App = () => {
 	};
 
 	const renderInputForm = () => {
+		if (network !== "Polygon Mumbai Testnet") {
+			return (
+				<div className="connect-wallet-container">
+					<h2>Please switch to Polygon Mumbai Testnet</h2>
+					<button className="cta-button mint-button" onClick={switchNetwork}>
+						Click here to switch
+					</button>
+				</div>
+			);
+		}
+
 		return (
 			<div className="form-container">
 				<div className="first-row">
