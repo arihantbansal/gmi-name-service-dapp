@@ -1,6 +1,7 @@
 {
-	"name": "bns",
+	"name": "gmi-name-service",
 	"version": "0.1.0",
+	"author": "arihantbansal",
 	"private": true,
 	"dependencies": {
 		"ethers": "^5.5.4",
