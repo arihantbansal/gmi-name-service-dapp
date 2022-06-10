@@ -11,7 +11,7 @@ const TWITTER_HANDLE = "_arihantbansal";
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
 const tld = ".gmi";
-const CONTRACT_ADDRESS = "0x934333c64FaCa3bFA87fB7a9863dc18A4D6e5B3C";
+const CONTRACT_ADDRESS = "0x55De38aB194E5E8c5005a4110AA578aAAcaccd4C";
 
 const App = () => {
 	const [mints, setMints] = useState([]);
