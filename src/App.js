@@ -338,11 +338,7 @@ const App = () => {
 											href={`https://testnets.opensea.io/assets/mumbai/${CONTRACT_ADDRESS}/${mint.id}`}
 											target="_blank"
 											rel="noopener noreferrer">
-											<p className="underlined">
-												{" "}
-												{mint.name}
-												{tld}{" "}
-											</p>
+											<p className="underlined"> {mint.name} </p>
 										</a>
 										{mint.owner.toLowerCase() ===
 										currentAccount.toLowerCase() ? (
@@ -405,7 +401,7 @@ const App = () => {
 						className="footer-text"
 						href={TWITTER_LINK}
 						target="_blank"
-						rel="noreferrer">{`built with @${TWITTER_HANDLE}`}</a>
+						rel="noreferrer">{`built by @${TWITTER_HANDLE}`}</a>
 				</div>
 			</div>
 		</div>
