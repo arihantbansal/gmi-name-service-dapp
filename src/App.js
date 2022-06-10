@@ -225,10 +225,13 @@ const App = () => {
 					signer
 				);
 
+				console.log("contract", contract);
+
 				const names = await contract.getAllNames();
 
 				const mintRecords = await Promise.all(
 					names.map(async (name) => {
+						name = name.split(".")[0];
 						const mintRecord = await contract.records(name);
 						const owner = await contract.domains(name);
 						return {
